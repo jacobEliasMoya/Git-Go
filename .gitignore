@@ -1,0 +1,8 @@
+# Local Go executables produced by this project.
+/git-go/ggo
+/git-go/ggo.exe
+
+# Go test binaries and coverage output.
+*.test
+*.out
+coverage/

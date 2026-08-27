@@ -1,295 +1,801 @@
-# Employable Go Learning Roadmap
+# GoQuest: An Employable Go Curriculum
 
-## Purpose
+## Mission
 
-This roadmap uses small, finished projects to build deep Go knowledge and practical backend engineering skills. Completing code is not enough: each checkpoint requires explanation, testing, and later recall without copying.
+GoQuest is a project-based curriculum for becoming employable with Go. It combines short lessons, hands-on quests, testing, deliberate debugging, TypeScript comparisons, spaced retrieval, and portfolio projects.
 
-Codex should review the learner's attempt before offering a complete implementation. Hints should progress from questions, to conceptual guidance, to pseudocode, and only then to focused code when requested or necessary.
+The goal is not to collect completed files. The goal is to develop skills that can be recalled, explained, tested, and transferred to unfamiliar problems.
 
-## Completion standard for every checkpoint
+The learner writes the implementation. Codex acts as instructor, reviewer, debugger, and curriculum guide. Codex should not silently complete a quest that the learner is meant to practice.
 
-A checkpoint is complete only when the learner can:
+## Course artifacts
 
-- run the behavior and describe the observed result;
-- explain the important syntax and control flow in their own words;
-- identify at least one relevant failure or edge case;
-- write or understand the tests appropriate to the checkpoint;
-- run formatting, tests, and static checks appropriate to the current stage;
-- make a focused commit that records the milestone.
+- `LEARNING_ROADMAP.md`: course rules, skill tree, levels, and mastery requirements.
+- `PROGRESS.md`: current quest, XP, mastery scores, review schedule, and unlocks.
+- `PHASE_NOTES.md`: explanations, commands, discoveries, mistakes, and checkpoint results.
+- Git history: evidence of small, understandable milestones.
+- Tests: executable evidence that behavior and failure handling work.
 
-Useful checks will eventually include `gofmt`, `go test`, `go test -race`, `go vet`, fuzz tests, benchmarks, and integration tests. They should be introduced when their purpose is concrete rather than all at once.
+## The quest loop
 
-## Command literacy
+Every quest follows the same seven-step loop:
 
-Terminal fluency is an explicit learning goal. Whenever a new Go, Git, or shell command is introduced, record and understand:
+1. **Brief** — define one observable outcome and the concepts it introduces.
+2. **Predict** — state what the code or command should do before running it.
+3. **Build** — implement the smallest version personally.
+4. **Verify** — format, compile, run, and inspect the result.
+5. **Test** — exercise normal behavior, boundaries, and failures appropriate to the level.
+6. **Explain** — describe the important lines and decisions without reading a prepared answer.
+7. **Transfer** — solve a small variation that was not copied from the lesson.
 
-- which directory it runs from;
-- what program is invoked;
-- what each meaningful argument or flag changes;
-- what output, files, Git state, process, or remote state it may affect;
-- what success and common failure look like;
-- how to inspect or reverse its effect when reversal is possible.
+A quest is not mastered merely because the program printed the expected output.
 
-The learner should eventually be able to type the common development commands from memory and explain them rather than relying on copied command sequences.
+## XP system
 
-## Primary documentation
+Each standard quest is worth 100 XP:
 
-Use exact pages from these primary sources throughout the roadmap:
+| Activity | XP | Evidence |
+|---|---:|---|
+| Read the focused references | 10 | Summarize the relevant idea |
+| Predict behavior | 10 | Record a prediction before execution |
+| Implement the behavior | 25 | Working learner-written code |
+| Verify with tools | 15 | Relevant commands and interpreted output |
+| Test or deliberately break it | 20 | Tests, edge cases, or compiler experiment |
+| Teach it back | 10 | Explanation in the learner's own words |
+| Complete the transfer task | 10 | Uncopied variation or application |
 
-- [Go documentation](https://go.dev/doc/) for official language and toolchain guides;
-- [How to Write Go Code](https://go.dev/doc/code) for modules, packages, builds, and the initial testing model;
-- [Go command reference](https://pkg.go.dev/cmd/go) for exact `go` subcommands and flags;
-- [Go standard library](https://pkg.go.dev/std) for package and API references;
-- [Git reference](https://git-scm.com/docs) for Git concepts and commands;
-- [PowerShell documentation](https://learn.microsoft.com/powershell/) for the Windows shell used by this workspace.
+Boss battles are worth 200 XP. Retrieval challenges are worth 25 XP. Portfolio releases are worth 300 XP.
 
-Each checkpoint should link to the exact relevant page—for example, the specific package or Git command—not only this general list. Related official references should be included when they clarify a prerequisite or a meaningful connection without overwhelming the current lesson.
+XP provides motivation and a history of effort. It never overrides a failed mastery gate.
 
-## Cross-language connections
+## Mastery gate
 
-Use prior JavaScript and TypeScript knowledge as a bridge. For each useful comparison:
+Every checkpoint is scored from 0–2 in four lanes:
 
-1. identify the familiar concept;
-2. explain the shared purpose;
-3. state the Go-specific behavior;
-4. identify where the analogy breaks;
-5. test the difference with a small prediction or experiment when practical.
+| Lane | 0 | 1 | 2 |
+|---|---|---|---|
+| Behavior | Missing or broken | Happy path works | Required behavior and boundaries work |
+| Quality | Unsafe or unchecked | Formatted and basically verified | Appropriate tests and static checks pass |
+| Explanation | Cannot yet explain | Explains syntax | Explains behavior, tradeoffs, and failure paths |
+| Transfer | Cannot modify it | Completes a guided variation | Solves an unfamiliar variation independently |
 
-Pay particular attention to package boundaries, slices and backing arrays, value and pointer semantics, structural interfaces, explicit errors, process execution, goroutines, channels, and `context`. The objective is to transfer durable programming knowledge while learning to write idiomatic Go rather than transliterated TypeScript.
+Unlock requirement:
 
-Maintain a recurring TypeScript-to-Go type map as concepts are encountered—not as an upfront vocabulary dump. It should cover inference, primitive types, arrays and slices, object shapes and structs, structural interfaces, `any`, generics, pointers, `nil`, zero values, conversions, and Go's lack of TypeScript-style union types. Every mapping must include the important mismatch, especially that TypeScript types are generally erased before JavaScript executes while Go uses static types to compile native code with concrete representations.
+- at least 7/8 total;
+- no lane may be 0;
+- required tests must pass;
+- the learner must make or approve the checkpoint commit.
 
-## Stage 1 — Build `ggo` from first principles
+## Independence rating
 
-### Checkpoint 1: Minimal executable
+Mastery and independence are tracked separately:
 
-Outcome: create the smallest Go program that runs and prints an intentional message.
+- ★☆☆ — completed with direct guidance or focused code.
+- ★★☆ — completed with conceptual hints or pseudocode.
+- ★★★ — completed from the brief and documentation without implementation help.
 
-Learn:
+There is no penalty for asking for help. A later reattempt can improve the independence rating.
 
-- source files, packages, imports, and the program entry point;
-- the difference between `go run` and a compiled executable;
-- how the compiler reports syntax and import errors.
+## Hint ladder
 
-Evidence:
+When blocked, request the smallest helpful rung:
 
-- run the program;
-- deliberately predict what each required line does;
-- format it and confirm it still runs.
+1. official documentation link;
+2. diagnostic question;
+3. conceptual explanation;
+4. TypeScript comparison;
+5. test case or failing example;
+6. pseudocode;
+7. focused code fragment;
+8. full solution only when explicitly requested or when the lesson is no longer serving as practice.
 
-### Checkpoint 2: Observe command-line arguments
+Codex should normally begin at the lowest useful rung.
 
-Outcome: inspect exactly what the operating system passes to the program.
+## Retrieval schedule
 
-Learn:
+Important concepts return after approximately:
 
-- strings, slices, indexing, length, and bounds safety;
-- the executable path versus user-provided arguments;
-- why quoted terminal input becomes one argument.
+- 1 day;
+- 3 days;
+- 7 days;
+- 14 days;
+- one later project.
 
-Evidence:
+A review should require recall, prediction, debugging, or application. Rereading notes alone does not count as retrieval practice.
 
-- try no arguments, one argument, and a quoted multi-word argument;
-- explain every element received by the program.
+## TypeScript-to-Go bridge
 
-### Checkpoint 3: Validate the first command shape
+Each level should connect prior TypeScript knowledge to Go while stating where the analogy fails.
 
-Outcome: accept only the initial `-F` workflow and reject incomplete or unknown input before any Git operation.
+Recurring comparisons include:
 
-Learn:
+- ECMAScript modules versus Go packages;
+- erased TypeScript types versus Go's compiled type system;
+- JS arrays versus Go arrays and slices;
+- object shapes versus structs;
+- TypeScript structural types versus Go interfaces;
+- optional properties and unions versus zero values, pointers, explicit booleans, and interfaces;
+- exceptions and rejected promises versus explicit Go errors;
+- Node child processes versus `os/exec`;
+- promises and async functions versus goroutines, channels, and `context`.
 
-- conditionals and early returns;
+The target is idiomatic Go, not TypeScript transliterated into Go syntax.
+
+# Skill tree
+
+## World 0 — Base Camp: Toolchain and workflow
+
+### Level 0.1: Locate the toolchain
+
+Quest:
+
+- identify the installed Go version and platform;
+- locate the active `go` executable;
+- explain what an exit code represents.
+
+Commands:
+
+- `go version`
+- PowerShell `Get-Command go`
+
+Docs:
+
+- [Download and install Go](https://go.dev/doc/install)
+- [PowerShell command discovery](https://learn.microsoft.com/powershell/scripting/discover-powershell)
+
+### Level 0.2: Understand the module boundary
+
+Quest:
+
+- locate `go.mod`;
+- explain the module directive and Go version;
+- distinguish a module, package, directory, and repository.
+
+Commands:
+
+- `go env GOMOD`
+- `go list ./...`
+
+Docs:
+
+- [Go modules reference](https://go.dev/ref/mod)
+- [`go list`](https://pkg.go.dev/cmd/go#hdr-List_packages_or_modules)
+
+### Level 0.3: Control Git state
+
+Quest:
+
+- explain working tree, staging index, commit, branch, and remote;
+- inspect a change before staging;
+- prepare and approve a focused commit.
+
+Docs:
+
+- [`git status`](https://git-scm.com/docs/git-status)
+- [`git diff`](https://git-scm.com/docs/git-diff)
+- [`git add`](https://git-scm.com/docs/git-add)
+- [`git commit`](https://git-scm.com/docs/git-commit)
+- [`git push`](https://git-scm.com/docs/git-push)
+
+Boss battle: clone the repository into a clean location, verify the module, run the project, make a harmless documentation change, inspect it, and discard or commit it intentionally.
+
+## World 1 — Boot Sequence: Minimal Go executable
+
+### Level 1.1: Start the program
+
+Main quest:
+
+- create a `main` package;
+- define the program entry point;
+- print one intentional line.
+
+Concepts:
+
+- package declarations;
+- imports;
+- functions;
+- exported identifiers;
+- standard output;
+- compilation before execution.
+
+Verification:
+
+- `gofmt -w main.go`
+- `go run .`
+- `go test ./...` as a build check even before test files exist.
+
+Compiler lab:
+
+- temporarily create an unused import;
+- predict the compiler response;
+- run the program and interpret the error;
+- restore the valid source.
+
+Transfer task:
+
+- change the output without changing the program structure;
+- explain why the import is still required.
+
+Docs:
+
+- [Getting started tutorial](https://go.dev/doc/tutorial/getting-started)
+- [`fmt` package](https://pkg.go.dev/fmt)
+- [`go run`](https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program)
+- [`gofmt`](https://pkg.go.dev/cmd/gofmt)
+
+Boss battle: reconstruct the minimal executable from an empty file without looking at the prior version.
+
+## World 2 — Input Scanner: Arguments, strings, and slices
+
+### Level 2.1: Observe `os.Args`
+
+Main quest:
+
+- print the raw argument slice;
+- identify the executable path;
+- observe no arguments, one argument, and a quoted multi-word argument.
+
+Concepts:
+
+- variables and short declarations;
+- strings;
+- slices;
+- indexes;
+- length;
+- terminal quoting.
+
+TypeScript bridge:
+
+- compare `os.Args` with Node's `process.argv`;
+- compare a Go slice with a JavaScript array while identifying type and memory differences.
+
+Safety lab:
+
+- predict what happens when indexing an absent element;
+- trigger the failure deliberately;
+- read the panic;
+- add a safe length check.
+
+Docs:
+
+- [`os.Args`](https://pkg.go.dev/os#Args)
+- [Go slices introduction](https://go.dev/blog/slices-intro)
+- [Go specification: index expressions](https://go.dev/ref/spec#Index_expressions)
+
+### Level 2.2: Name and display inputs
+
+Main quest:
+
+- assign the flag and message to meaningfully named variables;
+- print them separately;
+- explain type inference.
+
+Transfer task:
+
+- display the number of user-provided arguments without counting the executable path.
+
+Boss battle: write a small argument inspector from memory that safely describes every received argument.
+
+## World 3 — Gatekeeper: Validation and control flow
+
+### Level 3.1: Reject incomplete input
+
+Main quest:
+
+- reject missing arguments before indexing them;
+- produce a concise usage message;
+- stop execution with an early return.
+
+Concepts:
+
+- `if`;
+- comparisons;
+- early returns;
 - validation order;
-- user-facing errors versus programmer errors;
-- raw argument parsing before introducing the `flag` package.
+- safe boundaries.
 
-Evidence:
+### Level 3.2: Accept only `-F`
 
-- exercise valid, missing, extra, and unknown input;
-- show that invalid input causes no repository changes.
+Main quest:
 
-### Checkpoint 4: Format a commit message
+- accept the initial fix flag;
+- reject unknown flags;
+- keep repository-changing commands out of the program.
 
-Outcome: turn a validated message into the established fix-commit format without duplicating terminal punctuation.
+Test matrix:
 
-Learn:
+- no arguments;
+- only `-F`;
+- unknown flag;
+- valid `-F` and message;
+- extra arguments.
 
-- typed function parameters and return values;
+TypeScript bridge:
+
+- compare early-return validation with request validation in an API route;
+- contrast Go's lack of truthy/falsy coercion with JavaScript.
+
+Docs:
+
+- [Go specification: if statements](https://go.dev/ref/spec#If_statements)
+- [Effective Go: control structures](https://go.dev/doc/effective_go#control-structures)
+
+Boss battle: implement the validation again from a written behavior table rather than existing code.
+
+## World 4 — Message Forge: Functions, strings, and first tests
+
+### Level 4.1: Extract a pure formatter
+
+Main quest:
+
+- turn the user message into `(fix) Message.`;
+- avoid duplicating final punctuation;
+- return a new string from a helper.
+
+Concepts:
+
+- typed parameters;
+- return types;
 - pure functions;
-- string operations and small design decisions;
-- why pure behavior is the easiest place to begin testing.
+- string operations;
+- naming and function boundaries.
 
-Evidence:
+### Level 4.2: Write table-driven tests
 
-- create table-driven unit tests covering ordinary and edge-case messages;
-- explain the Arrange/Act/Assert structure even if the test is written compactly.
+Test cases:
 
-### Checkpoint 5: Run one external command safely
+- ordinary message;
+- message already ending in a period;
+- empty message policy;
+- surrounding whitespace policy;
+- punctuation cases chosen deliberately.
 
-Outcome: use Go to start one harmless, visible child process before modifying Git state.
+Concepts:
 
-Learn:
+- `_test.go` files;
+- `testing.T`;
+- table-driven tests;
+- subtests;
+- expected versus actual output;
+- regression tests.
 
-- programs versus shell command strings;
-- standard input, output, and error streams;
-- returned errors and process exit status;
-- why arguments should be passed separately.
+Commands:
 
-Evidence:
+- `go test ./...`
+- `go test -v ./...`
+- `go test -run <pattern> ./...`
 
-- observe success and a deliberately failing command;
-- explain what Go knows when the child process fails.
+TypeScript bridge:
 
-### Checkpoint 6: Introduce a Git command boundary
+- compare a Go table-driven test with parameterized Jest or Vitest tests;
+- compare explicit return types with TypeScript annotations.
 
-Outcome: isolate command execution so behavior can be tested without pushing to a real remote.
+Docs:
 
-Learn:
+- [Add a test tutorial](https://go.dev/doc/tutorial/add-a-test)
+- [`testing` package](https://pkg.go.dev/testing)
+- [`strings` package](https://pkg.go.dev/strings)
 
-- small helpers, slices or variadic arguments, and error propagation;
-- dependency seams without a framework;
-- when an interface helps and when it is premature.
+Boss battle: receive a failing hidden-style test case, diagnose the invariant, fix the formatter, and add a regression test.
 
-Evidence:
+## World 5 — Process Portal: Errors and external commands
 
-- test argument construction separately from real Git execution;
-- confirm errors stop later steps.
+### Level 5.1: Run one harmless command
 
-### Checkpoints 7–9: Stage, commit, then push
+Main quest:
 
-Outcomes, introduced one at a time:
+- create a child process with `os/exec`;
+- pass the program and arguments separately;
+- connect output to the terminal;
+- observe success and failure.
 
-1. run `git add .`;
-2. run `git commit -m <formatted-message>`;
-3. run `git push` only after the earlier steps succeed.
+Concepts:
 
-Learn:
+- processes;
+- arguments versus shell strings;
+- standard input/output/error;
+- exit status;
+- returned errors.
 
-- ordered side effects;
-- wrapping errors with useful context;
-- terminal wiring and authentication boundaries;
-- why partial failure must be designed explicitly.
+### Level 5.2: Propagate useful errors
 
-Evidence:
+Main quest:
 
-- use a disposable local repository for integration tests;
-- test a failure at each stage and prove later commands do not run;
-- never exercise push against a real remote merely for automated testing.
+- return command errors from a helper;
+- add context without losing the original error;
+- stop the workflow on failure.
 
-### Checkpoint 10: Produce and use the binary
+TypeScript bridge:
 
-Outcome: build `ggo`, invoke it as an executable, and understand how it is discovered through `PATH`.
+- compare `exec.Command` with Node's `child_process`;
+- compare explicit `error` values with thrown exceptions and rejected promises.
 
-Learn:
+Docs:
 
-- builds, binaries, exit codes, and cross-platform naming;
-- version information and reproducible build commands;
-- generated artifacts versus tracked source.
+- [`os/exec`](https://pkg.go.dev/os/exec)
+- [`errors`](https://pkg.go.dev/errors)
+- [`fmt.Errorf`](https://pkg.go.dev/fmt#Errorf)
 
-## Stage 2 — Go language depth
+Boss battle: run a known-success command and a known-failure command, then explain every output stream and error value.
 
-Build small exercises or extend a suitable project to cover:
+## World 6 — Git Pipeline: Safe side effects
 
-- arrays, slices, and maps, including allocation and mutation;
-- structs, methods, pointer receivers, and value semantics;
-- interfaces defined at the point of use;
-- error creation, wrapping, inspection, and sentinel errors;
-- `defer`, resource ownership, and cleanup;
-- readers, writers, files, JSON, time, and environment configuration;
-- package design, exported identifiers, documentation, and internal packages;
-- generics only after ordinary functions and interfaces are comfortable.
+### Level 6.1: Create a command boundary
 
-Testing depth:
+Main quest:
 
-- table-driven tests and subtests;
-- test helpers and temporary directories;
-- golden files where output stability matters;
-- fuzz tests for parsers and formatting invariants;
-- benchmarks and allocation reports for measured questions.
+- separate Git argument construction from process execution;
+- record commands in tests without running real Git;
+- prove later steps stop after a failure.
 
-Exit project: a second CLI that consumes files or structured input and has meaningful unit and integration tests.
+### Level 6.2: Stage in a disposable repository
 
-## Stage 3 — Standard-library HTTP service
+Main quest:
 
-Build a service primarily with `net/http` before selecting a framework.
+- create a temporary Git repository;
+- run the staging step there;
+- inspect the index afterward.
 
-Learn:
+### Level 6.3: Commit safely
 
-- handlers, routing, middleware, and request lifecycles;
-- JSON contracts, validation, status codes, and consistent errors;
-- `context`, timeouts, cancellation, and graceful shutdown;
-- configuration, structured logging, and dependency construction;
-- unit tests with `httptest` and end-to-end HTTP integration tests.
+Main quest:
 
-Exit project: a documented API with tests for success, malformed input, authorization boundaries, timeouts, and shutdown behavior.
+- pass the formatted message as one argument to `-m`;
+- preserve Git output;
+- stop when the commit fails.
 
-## Stage 4 — SQL and PostgreSQL
+### Level 6.4: Push only after success
 
-Learn:
+Main quest:
 
-- relational modeling, keys, constraints, and indexes;
-- parameterized queries and scanning results;
-- transactions, isolation, rollback, and idempotency;
-- migrations and compatibility between application and schema versions;
-- connection pools, cancellation, and database failure handling;
-- integration testing against an actual PostgreSQL instance.
+- introduce pushing last;
+- test sequencing without contacting a real remote;
+- perform a real push only with explicit authorization.
 
-Exit project: extend the HTTP service with durable storage and tests that prove transactional behavior and constraint enforcement.
+Testing:
 
-## Stage 5 — Concurrency and systems behavior
+- fake-runner unit tests;
+- temporary-directory integration tests;
+- disposable Git repository tests;
+- failure injection at every step.
 
-Learn:
+Docs:
 
-- goroutines, channels, mutexes, and ownership;
-- bounded worker pools, backpressure, cancellation, and timeouts;
-- common deadlocks, data races, goroutine leaks, and safe shutdown;
-- selecting sequential code when concurrency adds no value;
-- the race detector, execution traces, CPU profiles, and memory profiles.
+- [`os.MkdirTemp`](https://pkg.go.dev/os#MkdirTemp)
+- [`testing.T.TempDir`](https://pkg.go.dev/testing#T.TempDir)
+- [`git init`](https://git-scm.com/docs/git-init)
+- [`git add`](https://git-scm.com/docs/git-add)
+- [`git commit`](https://git-scm.com/docs/git-commit)
+- [`git push`](https://git-scm.com/docs/git-push)
 
-Exit project: a bounded concurrent worker or network service with cancellation, load tests, race-free tests, and documented throughput tradeoffs.
+Boss battle: demonstrate with tests that push cannot occur after an add or commit failure.
 
-## Stage 6 — Production engineering
+## World 7 — Release Gate: Build and distribute `ggo`
 
-Learn:
+Main quest:
 
-- module and dependency management;
-- linting, CI, reproducible builds, and release artifacts;
-- containers and local development environments;
-- logs, metrics, traces, health checks, and operational debugging;
-- authentication, authorization, secrets, input limits, and secure defaults;
-- profiling before optimization and load testing with explicit hypotheses.
+- build `ggo.exe`;
+- explain `go run`, `go build`, and `go install`;
+- keep generated binaries out of Git;
+- run the command from another disposable repository;
+- document installation and removal.
 
-Exit standard: deploy and operate a service, diagnose an injected failure, and explain the relevant reliability and security tradeoffs.
+Quality gate:
 
-## Stage 7 — Hiring preparation
+- `gofmt` clean;
+- unit tests pass;
+- integration tests pass;
+- `go vet ./...` passes;
+- README contains reproducible examples;
+- errors are actionable;
+- no real remote is changed during automated tests.
 
-Portfolio evidence should include:
+Docs:
 
-- the finished `ggo` CLI with focused history and tests;
-- a production-shaped HTTP and PostgreSQL service;
-- one concurrency-oriented tool or service;
-- CI, clear READMEs, architecture notes, and reproducible local setup;
-- written explanations of tradeoffs, failures encountered, and lessons learned.
+- [`go build`](https://pkg.go.dev/cmd/go#hdr-Compile_packages_and_dependencies)
+- [`go install`](https://pkg.go.dev/cmd/go#hdr-Compile_and_install_packages_and_dependencies)
+- [How to Write Go Code](https://go.dev/doc/code)
 
-Interview preparation should cover:
+Portfolio release: tag and document the first maintainable `ggo` version.
 
-- explaining slices, maps, interfaces, pointers, errors, and goroutines;
-- debugging unfamiliar code and failing tests aloud;
-- implementing small features without relying on memorized scaffolds;
-- HTTP, SQL, concurrency, testing, and basic distributed-systems reasoning;
-- reviewing code for correctness, maintainability, performance, and security.
+# Core Go campaign
 
-## Learning cadence
+## World 8 — Type Foundry
 
-Use a repeating cycle:
+Quests:
 
-1. Attempt the checkpoint without a complete solution.
-2. Predict the behavior before running the program.
-3. Run it and compare the result with the prediction.
-4. Request a review focused on correctness and Go idioms.
-5. Fix the findings personally.
-6. Add tests for discovered failure modes.
-7. Explain the implementation from memory.
-8. Revisit the concept after several days in a different problem.
+- primitive types, constants, inference, and conversions;
+- arrays versus slices;
+- slice length, capacity, append, copy, and backing arrays;
+- maps and the comma-ok idiom;
+- structs and field access;
+- zero values and `nil`.
 
-Every few checkpoints, complete a no-assistance exercise. These retrieval checks reveal whether knowledge is becoming usable independently rather than merely recognizable.
+Boss battle: build an in-memory issue tracker with typed statuses, slices, maps, validation, and table-driven tests.
+
+Docs:
+
+- [Go Tour](https://go.dev/tour/)
+- [Go specification: types](https://go.dev/ref/spec#Types)
+- [Slices usage and internals](https://go.dev/blog/slices-intro)
+
+## World 9 — Method Mountains
+
+Quests:
+
+- methods;
+- value receivers;
+- pointer receivers;
+- mutation and copying;
+- constructors as ordinary functions;
+- embedding and composition.
+
+Boss battle: model a small domain, predict which mutations persist, and prove the behavior with tests.
+
+Docs:
+
+- [Effective Go: methods](https://go.dev/doc/effective_go#methods)
+- [Go specification: method declarations](https://go.dev/ref/spec#Method_declarations)
+
+## World 10 — Interface Crossing
+
+Quests:
+
+- implicit interface satisfaction;
+- interfaces defined by consumers;
+- small interfaces;
+- type assertions and type switches;
+- `any` and when not to use it;
+- dependency seams for testing.
+
+Boss battle: replace one concrete dependency with a minimal consumer-owned interface without producing an abstraction layer maze.
+
+Docs:
+
+- [Go specification: interface types](https://go.dev/ref/spec#Interface_types)
+- [Effective Go: interfaces](https://go.dev/doc/effective_go#interfaces_and_types)
+
+## World 11 — Error Caverns
+
+Quests:
+
+- creating errors;
+- wrapping errors;
+- `errors.Is` and `errors.As`;
+- sentinel and typed errors;
+- errors at package boundaries;
+- logging versus returning;
+- `defer` and cleanup.
+
+Boss battle: debug a multi-layer failure while preserving enough context for the caller to make a decision.
+
+Docs:
+
+- [Working with Errors in Go](https://go.dev/blog/go1.13-errors)
+- [`errors` package](https://pkg.go.dev/errors)
+- [Effective Go: defer](https://go.dev/doc/effective_go#defer)
+
+# Portfolio campaigns
+
+## World 12 — Data Explorer CLI
+
+Build a second CLI that reads JSON, CSV, logs, or repository data and produces a useful report.
+
+Required skills:
+
+- `io.Reader` and `io.Writer`;
+- files and paths;
+- JSON or CSV encoding;
+- configuration;
+- package design;
+- dependency injection through ordinary functions and small interfaces.
+
+Testing ladder:
+
+- pure unit tests;
+- temporary files and directories;
+- malformed input;
+- golden output where justified;
+- fuzzing for parser invariants;
+- benchmarks only for an explicit performance question.
+
+Boss battle: implement a new input case from documentation and tests without instructor code.
+
+Docs:
+
+- [`io`](https://pkg.go.dev/io)
+- [`os`](https://pkg.go.dev/os)
+- [`encoding/json`](https://pkg.go.dev/encoding/json)
+- [`encoding/csv`](https://pkg.go.dev/encoding/csv)
+- [Go fuzzing tutorial](https://go.dev/doc/tutorial/fuzz)
+
+## World 13 — HTTP Province
+
+Build a service primarily with `net/http` before adopting a framework.
+
+Quests:
+
+- handlers and routing;
+- JSON request and response contracts;
+- validation and consistent errors;
+- middleware;
+- request-scoped context;
+- cancellation and timeouts;
+- graceful shutdown;
+- structured logging;
+- configuration.
+
+Tests:
+
+- handler unit tests;
+- `httptest` requests and recorders;
+- full HTTP integration tests;
+- malformed bodies;
+- unknown resources;
+- cancellation and timeout behavior.
+
+Boss battle: add a new endpoint from a behavioral specification with tests and no implementation hint.
+
+Docs:
+
+- [`net/http`](https://pkg.go.dev/net/http)
+- [`net/http/httptest`](https://pkg.go.dev/net/http/httptest)
+- [`context`](https://pkg.go.dev/context)
+- [JSON and Go](https://go.dev/blog/json)
+
+## World 14 — PostgreSQL Depths
+
+Extend the HTTP service with durable storage.
+
+Quests:
+
+- relational modeling;
+- keys, constraints, and indexes;
+- parameterized queries;
+- scanning rows;
+- transactions and rollback;
+- migrations;
+- connection pools;
+- cancellation;
+- idempotency;
+- schema/application compatibility.
+
+Tests:
+
+- integration tests against PostgreSQL;
+- constraint failures;
+- rollback behavior;
+- concurrent update behavior;
+- migration from an older schema.
+
+Boss battle: diagnose and fix a consistency bug using a transaction and a regression test.
+
+Docs:
+
+- [`database/sql`](https://pkg.go.dev/database/sql)
+- [Executing transactions](https://go.dev/doc/database/execute-transactions)
+- [Accessing relational databases](https://go.dev/doc/database/)
+
+## World 15 — Concurrency Citadel
+
+Quests:
+
+- goroutines;
+- channels;
+- `select`;
+- mutexes;
+- ownership;
+- bounded worker pools;
+- backpressure;
+- cancellation;
+- deadlocks;
+- goroutine leaks;
+- data races.
+
+Tests and tools:
+
+- deterministic concurrency tests;
+- `go test -race ./...`;
+- controlled timeouts;
+- load tests;
+- execution traces;
+- CPU and memory profiles.
+
+Boss battle: build a bounded worker service that shuts down cleanly, leaks no goroutines, and passes the race detector.
+
+Docs:
+
+- [Go concurrency patterns](https://go.dev/blog/pipelines)
+- [Go memory model](https://go.dev/ref/mem)
+- [Data race detector](https://go.dev/doc/articles/race_detector)
+- [`sync` package](https://pkg.go.dev/sync)
+
+## World 16 — Production Keep
+
+Quests:
+
+- module and dependency maintenance;
+- CI;
+- linting and static analysis;
+- reproducible builds;
+- containers;
+- environment configuration and secrets;
+- health checks;
+- logs, metrics, and traces;
+- authentication and authorization;
+- input and resource limits;
+- dependency auditing;
+- profiling before optimization.
+
+Boss battle: deploy a service, inject a failure, diagnose it using operational signals, and write a prevention or mitigation test.
+
+## World 17 — Hiring Arena
+
+Portfolio releases:
+
+- tested `ggo` CLI;
+- file/data CLI;
+- PostgreSQL-backed HTTP service;
+- concurrency-oriented worker or service;
+- clear READMEs, architecture notes, CI, and reproducible setup.
+
+Interview quests:
+
+- explain slices, maps, structs, interfaces, pointers, errors, and goroutines;
+- debug unfamiliar Go code aloud;
+- review code for correctness, maintainability, performance, and security;
+- implement small features without memorized scaffolding;
+- discuss HTTP, SQL, concurrency, and testing tradeoffs;
+- compare Go and TypeScript accurately without overstating similarities.
+
+Final boss: receive an unfamiliar but bounded backend task, clarify requirements, implement it, test it, review the diff, and explain the design under time constraints.
+
+# Testing mastery ladder
+
+Testing capabilities unlock in this order:
+
+1. compile and run;
+2. deliberate compiler-error experiments;
+3. unit tests for pure functions;
+4. table-driven tests and subtests;
+5. fake or recorded dependency boundaries;
+6. temporary files and repositories;
+7. HTTP integration tests;
+8. database integration tests;
+9. fuzz tests;
+10. race detection;
+11. benchmarks and profiling;
+12. CI quality gates.
+
+Coverage percentage is diagnostic information, not the objective. Tests should protect important behavior, boundaries, invariants, and failure paths.
+
+# Instructor protocol
+
+For each new quest, Codex should provide:
+
+1. the observable objective;
+2. why the skill matters professionally;
+3. prerequisite check;
+4. focused official references;
+5. a TypeScript comparison when useful;
+6. a prediction prompt;
+7. acceptance criteria;
+8. commands with concise explanations;
+9. a code review after the learner's attempt;
+10. a mastery score and next unlock.
+
+Routine commands should be explained fully on first use and briefly on later repetition. New flags, side effects, destructive operations, and remote effects always require explanation.
+
+# Definition of course completion
+
+The curriculum is complete when the learner can independently:
+
+- build and maintain multiple Go programs;
+- use the standard library confidently;
+- design clear packages and boundaries;
+- write layered unit and integration tests;
+- diagnose compiler, runtime, race, database, and HTTP failures;
+- build a production-shaped service;
+- explain tradeoffs during code review;
+- transfer existing TypeScript/backend knowledge without writing non-idiomatic Go;
+- present tested projects and reason effectively in hiring interviews.

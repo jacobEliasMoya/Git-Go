@@ -2,7 +2,7 @@
 
 ## Mission
 
-GoQuest is a project-based curriculum for becoming employable with Go. It combines short lessons, hands-on quests, testing, deliberate debugging, TypeScript comparisons, spaced retrieval, and portfolio projects.
+GoQuest is a project-based curriculum for becoming employable with Go. It combines short lessons, hands-on quests, testing, deliberate debugging, Go-first explanations, spaced retrieval, and portfolio projects.
 
 The goal is not to collect completed files. The goal is to develop skills that can be recalled, explained, tested, and transferred to unfamiliar problems.
 
@@ -83,7 +83,7 @@ When blocked, request the smallest helpful rung:
 1. official documentation link;
 2. diagnostic question;
 3. conceptual explanation;
-4. TypeScript comparison;
+4. another Go example or compiler experiment;
 5. test case or failing example;
 6. pseudocode;
 7. focused code fragment;
@@ -103,23 +103,11 @@ Important concepts return after approximately:
 
 A review should require recall, prediction, debugging, or application. Rereading notes alone does not count as retrieval practice.
 
-## TypeScript-to-Go bridge
+## Go-first explanations
 
-Each level should connect prior TypeScript knowledge to Go while stating where the analogy fails.
+Teach each concept using Go's vocabulary, rules, examples, compiler behavior, and official documentation. Do not introduce comparisons to TypeScript, JavaScript, or another language unless the learner explicitly asks for one.
 
-Recurring comparisons include:
-
-- ECMAScript modules versus Go packages;
-- erased TypeScript types versus Go's compiled type system;
-- JS arrays versus Go arrays and slices;
-- object shapes versus structs;
-- TypeScript structural types versus Go interfaces;
-- optional properties and unions versus zero values, pointers, explicit booleans, and interfaces;
-- exceptions and rejected promises versus explicit Go errors;
-- Node child processes versus `os/exec`;
-- promises and async functions versus goroutines, channels, and `context`.
-
-The target is idiomatic Go, not TypeScript transliterated into Go syntax.
+When requested, a comparison should address one focused question, identify where the analogy breaks, and then return to the Go model. The target is an independent understanding of idiomatic Go.
 
 # Skill tree
 
@@ -244,7 +232,7 @@ Concepts:
 - length;
 - terminal quoting.
 
-TypeScript bridge:
+Optional cross-language comparison, only when explicitly requested:
 
 - compare `os.Args` with Node's `process.argv`;
 - compare a Go slice with a JavaScript array while identifying type and memory differences.
@@ -310,7 +298,7 @@ Test matrix:
 - valid `-F` and message;
 - extra arguments.
 
-TypeScript bridge:
+Optional cross-language comparison, only when explicitly requested:
 
 - compare early-return validation with request validation in an API route;
 - contrast Go's lack of truthy/falsy coercion with JavaScript.
@@ -365,7 +353,7 @@ Commands:
 - `go test -v ./...`
 - `go test -run <pattern> ./...`
 
-TypeScript bridge:
+Optional cross-language comparison, only when explicitly requested:
 
 - compare a Go table-driven test with parameterized Jest or Vitest tests;
 - compare explicit return types with TypeScript annotations.
@@ -405,7 +393,7 @@ Main quest:
 - add context without losing the original error;
 - stop the workflow on failure.
 
-TypeScript bridge:
+Optional cross-language comparison, only when explicitly requested:
 
 - compare `exec.Command` with Node's `child_process`;
 - compare explicit `error` values with thrown exceptions and rejected promises.
@@ -777,7 +765,7 @@ For each new quest, Codex should provide:
 2. why the skill matters professionally;
 3. prerequisite check;
 4. focused official references;
-5. a TypeScript comparison when useful;
+5. a second Go example or experiment when useful;
 6. a prediction prompt;
 7. acceptance criteria;
 8. commands with concise explanations;
@@ -797,5 +785,5 @@ The curriculum is complete when the learner can independently:
 - diagnose compiler, runtime, race, database, and HTTP failures;
 - build a production-shaped service;
 - explain tradeoffs during code review;
-- transfer existing TypeScript/backend knowledge without writing non-idiomatic Go;
+- reason about Go directly and write idiomatic Go;
 - present tested projects and reason effectively in hiring interviews.

@@ -23,12 +23,6 @@ Hello There
 - Go requires imported packages to be used.
 - `gofmt` provides one canonical source format rather than treating formatting as a project-specific style choice.
 
-### TypeScript and JavaScript connections
-
-- A Go import and an ECMAScript import both make another module or package's identifiers available, but Go imports are checked by the compiler and unused imports are rejected.
-- `func main()` has no exact Node.js equivalent. Node normally starts evaluating the chosen JavaScript module at its top level; a Go executable starts through the specially recognized `main` function in `package main`.
-- TypeScript is normally transformed into JavaScript for a JavaScript runtime. Go compiles statically typed source into native executable code before that program runs.
-
 ### Commands introduced
 
 Run from `C:\Users\Jemoy\Golang\git-go` unless otherwise stated.
@@ -78,7 +72,7 @@ Before marking this checkpoint complete, explain:
 1. Why must this executable use `package main`?
 2. What role does `func main()` play?
 3. Why might Go reject unused imports?
-4. How does `go run .` differ from running a TypeScript or JavaScript file?
+4. What compilation and execution steps does `go run .` perform?
 
 ### Primary references
 
@@ -87,3 +81,44 @@ Before marking this checkpoint complete, explain:
 - [`go run` command](https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program)
 - [`gofmt` command](https://pkg.go.dev/cmd/gofmt)
 - [Go modules reference](https://go.dev/ref/mod)
+
+## 2026-08-27 — World 2.1: Observe command-line arguments
+
+Status: Argument experiment works with two user arguments; bounds validation remains intentionally unfinished.
+
+### What I changed
+
+- Imported `os` to read `os.Args`.
+- Imported `path/filepath` to display only the executable's base name.
+- Created `args := os.Args[1:]` so the new slice contains user-provided arguments and excludes the executable entry.
+- Printed the first two user arguments by index.
+
+### What the code currently assumes
+
+The program assumes at least two user arguments exist. Accessing `args[0]` or `args[1]` without enough elements causes an index-out-of-range panic. This is recorded as the next validation problem rather than hidden by an instructor-written fix.
+
+### Executable-path safety note
+
+`os.Args[0]` is informational and should not be treated as trusted identity. Under `go run`, it normally refers to a temporary compiled executable. Printing that path does not execute it again. `filepath.Base` shortens the displayed value but is presentation cleanup, not a security boundary.
+
+### Current valid invocation
+
+```powershell
+go run . alpha "hello world"
+```
+
+Expected user-argument slice:
+
+- `args[0]` is `alpha`.
+- `args[1]` is `hello world`.
+
+### Next problem
+
+Before treating the program as a usable CLI, validate `len(args)` before indexing and define behavior for zero, one, two, and extra user arguments.
+
+### Primary references
+
+- [`os.Args`](https://pkg.go.dev/os#Args)
+- [`filepath.Base`](https://pkg.go.dev/path/filepath#Base)
+- [Go specification: index expressions](https://go.dev/ref/spec#Index_expressions)
+- [`len` built-in](https://pkg.go.dev/builtin#len)

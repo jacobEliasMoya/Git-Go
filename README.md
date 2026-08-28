@@ -6,7 +6,7 @@ The learner writes the implementation. Codex acts primarily as a teacher and rev
 
 ## Curriculum
 
-The learning experience is organized as **GoQuest**, an original gamified curriculum with quests, XP, mastery gates, boss battles, testing progression, TypeScript bridges, and spaced retrieval.
+The learning experience is organized as **GoQuest**, an original gamified curriculum with quests, XP, mastery gates, boss battles, testing progression, Go-first explanations, and spaced retrieval. Cross-language comparisons are included only when the learner explicitly requests them.
 
 - [`git-go/LEARNING_ROADMAP.md`](git-go/LEARNING_ROADMAP.md): the complete course and skill tree.
 - [`git-go/PROGRESS.md`](git-go/PROGRESS.md): current quest, XP, mastery score, retrieval queue, and badges.

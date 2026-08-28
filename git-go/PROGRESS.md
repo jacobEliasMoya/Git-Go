@@ -3,13 +3,43 @@
 ## Player card
 
 - Current title: Gopher Initiate
-- Current world: World 1 — Boot Sequence
-- Current level: 1.1 — Start the program
-- Total verified XP: 40
+- Current world: World 2 — Input Scanner
+- Current level: 2.1 — Observe command-line arguments
+- Total verified XP: 80
 - Independence rating: ★★☆
 - Current streak: tracked by completed study sessions, not calendar pressure
 
 ## Current quest
+
+### Level 2.1 — Observe command-line arguments
+
+Objective: inspect user-provided command-line arguments and understand the executable entry, slicing, indexing, and bounds risk.
+
+Progress:
+
+- [x] Import `os` and inspect `os.Args`.
+- [x] Exclude the executable entry with `os.Args[1:]`.
+- [x] Display the executable base name with `filepath.Base`.
+- [x] Read two user arguments by index.
+- [x] Identify the index-out-of-range risk.
+- [ ] Validate zero user arguments.
+- [ ] Validate one user argument.
+- [ ] Decide the policy for extra arguments.
+- [ ] Explain why slicing does not guarantee later indexes exist.
+
+Current mastery:
+
+| Lane | Score | Evidence needed next |
+|---|---:|---|
+| Behavior | 1/2 | Define and handle zero, one, and extra arguments |
+| Quality | 1/2 | Add bounds validation and verify the input matrix |
+| Explanation | 1/2 | Explain slice length and indexing risk |
+| Transfer | 1/2 | Safely vary the accepted command shape |
+| **Total** | **4/8** | Continue with validation before mastery |
+
+Known risk: the current implementation panics unless at least two user arguments are supplied.
+
+## Earlier quest
 
 ### Level 1.1 — Start the program
 
@@ -27,7 +57,7 @@ Progress:
 - [ ] Explain `package main` in your own words.
 - [ ] Explain `func main()` in your own words.
 - [ ] Explain why unused imports are rejected.
-- [ ] Compare `go run .` with executing TypeScript or JavaScript.
+- [ ] Explain the compile-and-run lifecycle of `go run .`.
 - [ ] Reconstruct the minimal program from an empty scratch file.
 
 Verified XP:
@@ -59,7 +89,7 @@ World 2 — Input Scanner unlocks after Level 1.1 mastery.
 First unlocked quest:
 
 - inspect `os.Args`;
-- compare it with Node's `process.argv`;
+- describe the type and contents of `os.Args` using Go terminology;
 - predict and observe argument indexing behavior.
 
 ## Retrieval queue
@@ -108,7 +138,7 @@ Tests and results:
 
 Bug or surprise:
 
-TypeScript connection and where it breaks:
+Optional cross-language connection, only if I requested one:
 
 What I can explain now:
 

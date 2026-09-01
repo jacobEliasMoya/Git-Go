@@ -3,16 +3,17 @@ package main
 import (
 	"fmt"
 	"os"
-	// "path/filepath"
 )
 
 func main() {
-
 	// saving args
 	args := os.Args[1:]
 
-	if len(args) > 0 {
-		fmt.Println(args[0])
+	if len(args) != 1 {
+		fmt.Println("Review: Multiple Args Present")
+		return
 	}
-
+	printArgs(args[0])
 }
+
+

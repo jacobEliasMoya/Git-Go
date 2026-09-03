@@ -21,16 +21,7 @@ This document describes the intended destination and learning path. It is not ev
 
 The learner is new to Go, but is not new to programming. They already understand JavaScript, TypeScript, React, Next.js, APIs, frontend development, project structure, and production debugging.
 
-Codex may use JavaScript or TypeScript comparisons to introduce unfamiliar Go concepts. Comparisons should help build intuition without implying that the languages behave identically.
-
-Useful comparisons include:
-
-- A Go function can be compared with a JavaScript/TypeScript function, while calling out Go's explicit parameter and return types.
-- A Go package is loosely comparable to a module boundary, but Go package and import rules are distinct.
-- `os.Args` is comparable to reading Node's `process.argv`.
-- Go flag parsing can be compared with parsing CLI options in Node, while explaining the standard library's conventions.
-- `exec.Command` is comparable to starting a child process from Node's `child_process`, but arguments are passed separately and execution errors must be handled explicitly.
-- A compiled Go binary differs from running a JavaScript file through a runtime such as Node.
+Teach Go in Go-native terms by default. Do not introduce JavaScript, TypeScript, or other cross-language comparisons unless the learner explicitly requests one. When a comparison is requested, keep it focused, state where the analogy breaks, and return to the Go model afterward.
 
 Do not assume knowledge of Go syntax, packages, modules, exported identifiers, error handling, slices, standard-library conventions, compilation, or executable installation.
 
@@ -292,15 +283,11 @@ Prefer these sources:
 
 Link the primary page that directly supports the explanation. Add closely related official references when they help connect the current concept to testing, tooling, security, performance, or a prerequisite, but avoid burying the learner in an undifferentiated link dump. Briefly state what each linked reference is useful for.
 
-## Cross-Language Transfer Protocol
+## Go-First Teaching Protocol
 
-Use the learner's JavaScript, TypeScript, React, Next.js, and API experience to build accurate mental models for Go. When introducing a concept, explain the nearest familiar idea when useful, then state the important differences and where the analogy stops working.
+Explain packages, types, values, control flow, errors, processes, concurrency, and tooling from Go's own rules and vocabulary. Prefer small Go examples, predictions, compiler experiments, and official Go documentation.
 
-Useful comparisons include modules versus packages, arrays versus slices, objects versus structs, TypeScript structural typing versus Go interfaces, exceptions or rejected promises versus explicit Go errors, Node child processes versus `os/exec`, async JavaScript versus goroutines, and request cancellation versus Go `context`.
-
-Do not force a comparison when Go's model is clearer on its own. Correct transferred habits that produce non-idiomatic Go, such as premature abstraction, class-shaped designs, overly broad interfaces, hidden error handling, or assuming JavaScript reference behavior. Also connect concepts to SQL, HTTP, operating systems, testing, and distributed systems when those relationships strengthen practical engineering judgment.
-
-Type-system comparisons deserve special attention. Contrast TypeScript's mostly erased compile-time types with Go's statically compiled types and concrete runtime representations. Revisit inference, zero values, assignability, conversions, structs, implicit interface satisfaction, pointers and `nil`, `any`, generics, the absence of ordinary union types, and value versus reference-like behavior as those topics arise. Use small prediction exercises to expose differences rather than relying only on verbal analogies.
+Cross-language comparisons are opt-in. Use one only after the learner explicitly asks for it. A requested comparison should clarify one specific concept, identify the important mismatch, and never replace the underlying Go explanation.
 
 If existing code takes a different reasonable approach, explain the tradeoff before changing it. Preserve working choices unless they block the learning objective, introduce incorrect behavior, or the learner asks for a rewrite.
 

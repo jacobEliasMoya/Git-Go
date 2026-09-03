@@ -5,5 +5,9 @@ import (
 )
 
 func printArgs(arg string) {
-	fmt.Println("this is the arg:", arg)
+
+	if  {
+		fmt.Println("this is the arg:", arg)
+	}
+
 }

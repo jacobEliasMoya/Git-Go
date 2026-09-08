@@ -2,8 +2,11 @@ package main
 
 import (
 	"fmt"
+	"os"
 )
 
 func main() {
-	fmt.Println("Main git-go") 
+	// slice expression to just graba the items after the executable path
+	args:= os.Args[1:]
+	fmt.Println("Main git-go ",args)
 }

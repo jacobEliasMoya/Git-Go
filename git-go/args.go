@@ -6,8 +6,8 @@ import (
 
 func printArgs(arg string) {
 
-	if  {
-		fmt.Println("this is the arg:", arg)
-	}
+	// if  {
+	// 	fmt.Println("this is the arg:", arg)
+	// }
 
 }

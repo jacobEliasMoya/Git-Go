@@ -15,8 +15,9 @@ func displayArgs(args []string) {
 
 	if len(args) == 0 {
 		fmt.Println("No args present")
-	} else {
-		fmt.Println("args are ... ", args)
+		return
 	}
+
+	fmt.Println("args are ... ", args)
 
 }

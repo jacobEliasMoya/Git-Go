@@ -21,6 +21,10 @@ func main() {
 	// slice expression to just graba the items after the executable path
 	args := os.Args[1:]
 	displayArgs(args)
+
+	p := &paul
+
+	fmt.Println(p)
 }
 
 func displayArgs(args []string) {

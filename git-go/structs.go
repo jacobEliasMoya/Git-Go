@@ -15,9 +15,9 @@ func (p Person) displayPerson() {
 }
 
 func (p *Person) birthday() {
-	p.Age ++
+	p.Age++
 }
 
 func (p Person) celebrate(results chan<- Person) {
 	// working here
-}
+} 	

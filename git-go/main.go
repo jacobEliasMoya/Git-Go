@@ -8,23 +8,26 @@ import (
 func main() {
 
 	// Addition of Person struct
-	paul := Person{
-		Name: "paul",
+	person := Person{
+		Name: "Paul",
 		Hair: "red",
 		Age:  24,
 	}
 
-	paul.birthday()
+	person.birthday()
 
-	paul.displayPerson()
+	person.displayPerson()
 
 	// slice expression to just graba the items after the executable path
 	args := os.Args[1:]
 	displayArgs(args)
 
-	p := &paul
+	changeName(&person, "jacob")
+	changeHair(&person, "periwinkle")
+	changeAge(&person, 32)
 
-	fmt.Println(p)
+	fmt.Println(person)
+
 }
 
 func displayArgs(args []string) {

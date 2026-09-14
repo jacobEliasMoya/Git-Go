@@ -8,16 +8,23 @@ import (
 func main() {
 	// slice expression to just graba the items after the executable path
 	args := os.Args[1:]
-	displayArgs(args)
+	hasArgs := returnArgs(args)
+
+	if hasArgs {
+		fmt.Println("Has Args:")
+		for _, arg := range args {
+			fmt.Println(arg)
+		}
+	} else {
+		fmt.Println("No Args")
+	}
 }
 
-func displayArgs(args []string) {
+func returnArgs(args []string) bool {
 
 	if len(args) == 0 {
-		fmt.Println("No args present")
-		return
+		return false
 	}
 
-	fmt.Println("args are ... ", args)
-
+	return true
 }

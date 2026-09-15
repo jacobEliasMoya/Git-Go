@@ -12,9 +12,7 @@ func main() {
 
 	if hasArgs {
 		fmt.Println("Has Args:")
-		for _, arg := range args {
-			fmt.Println(arg)
-		}
+		commitType(args[0])
 	} else {
 		fmt.Println("No Args")
 	}
@@ -28,3 +26,24 @@ func returnArgs(args []string) bool {
 
 	return true
 }
+
+func commitType(arg string) (string, bool) {
+	// list of items that should be available
+	argTypes := []string{"fix", "feat", "refactor", "docs", "test"}
+
+	for _, t := range argTypes {
+		if t == arg {
+			fmt.Println("arg matches type:", arg)
+			return arg, true
+		}
+	}
+
+	fmt.Println("No arg matche existing types")
+	return "", false
+}
+
+func commitScope(arg string) {
+
+}
+
+func commitMessage(arg string) {}

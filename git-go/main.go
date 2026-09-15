@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"slices"
 )
 
 func main() {
@@ -31,11 +32,9 @@ func commitType(arg string) (string, bool) {
 	// list of items that should be available
 	argTypes := []string{"fix", "feat", "refactor", "docs", "test"}
 
-	for _, t := range argTypes {
-		if t == arg {
-			fmt.Println("arg matches type:", arg)
-			return arg, true
-		}
+	if slices.Contains(argTypes, arg) {
+		fmt.Println("arg matches type:", arg)
+		return arg, true
 	}
 
 	fmt.Println("No arg matche existing types")

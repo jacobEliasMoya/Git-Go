@@ -10,16 +10,26 @@ func main() {
 	// slice expression to just graba the items after the executable path
 	args := os.Args[1:]
 	hasArgs := returnArgs(args)
-	gitType := args[0]
 
+	// fullMessage := ""
+
+	// gitType := args[0]
 	// gitScope := args[1]
 	// gitMessage := args[2]
 
+	switch len(args) {
+	case 1:
+		fmt.Println(args[0])
+	case 2:
+		fmt.Println(args[0])
+	case 3:
+		fmt.Println(args[0])
+	default:
+		fmt.Println("bing bing")
+	}
+
 	if hasArgs {
-		fmt.Println("Has Args: ", len(args))
-		commitType(gitType)
 	} else {
-		fmt.Println("No Args")
 	}
 }
 

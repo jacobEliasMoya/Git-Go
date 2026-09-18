@@ -10,24 +10,30 @@ func main() {
 	// slice expression to just graba the items after the executable path
 	args := os.Args[1:]
 
-	// fullMessage := ""
+	var fullMessage, gitType, gitScope, gitMessage string
 
-	// gitType := commitType(args[0])
-	// gitScope := commitScope(args[1])
-	// gitMessage := args[2]
-
+loop:
 	for i, item := range args {
-		switch len(args[i]) {
+		switch i {
 		case 0:
-			println("Nothing present for:", args[i])
-		case 1:
-			println("Nothing present for:", args[i])
-		case 3:
-			println("Nothing present for:", args[i])
-		}
+			hasGitType, isGitType := commitType(item)
 
-		fmt.Println("nah", item)
+			if isGitType {
+				gitType += hasGitType
+			} else {
+				break loop
+			}
+
+		case 1:
+			gitScope += returnString(item)
+		case 2:
+			gitMessage += ": " + returnString(item)
+		}
 	}
+
+	fullMessage += fmt.Sprintf("%s (%s)%s", gitType, gitScope, gitMessage)
+
+	fmt.Println(fullMessage)
 }
 
 func returnArgs(args []string) bool {
@@ -37,7 +43,7 @@ func returnArgs(args []string) bool {
 	return true
 }
 
-func commitType(arg string) string {
+func commitType(arg string) (string, bool) {
 
 	// list of items that should be available
 	// "fix", "feat", "refactor", "docs", "test" for now
@@ -46,19 +52,17 @@ func commitType(arg string) string {
 
 	if slices.Contains(argTypes, arg) {
 		fmt.Println("arg matches type:", arg)
-		return arg
+		return arg, true
 	}
 
 	fmt.Println("No arg match existing types")
-	return ""
+	return "", false
 }
 
-func commitScope(arg string) string {
+func returnString(arg string) string {
 
 	if len(arg) > 0 {
 		return arg
 	}
 	return ""
 }
-
-func commitMessage(arg string) {}

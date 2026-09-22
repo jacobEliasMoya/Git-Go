@@ -12,7 +12,6 @@ func main() {
 
 	var fullMessage, gitType, gitScope, gitMessage string
 
-loop:
 	for i, item := range args {
 		switch i {
 		case 0:
@@ -21,7 +20,7 @@ loop:
 			if isGitType {
 				gitType += hasGitType
 			} else {
-				break loop
+				return
 			}
 
 		case 1:
@@ -48,10 +47,9 @@ func commitType(arg string) (string, bool) {
 	// list of items that should be available
 	// "fix", "feat", "refactor", "docs", "test", for now
 
-	argTypes := []string{"fix", "feat", "refactor", "docs", "test", }
+	argTypes := []string{"fix", "feat", "refactor", "docs", "test"}
 
 	if slices.Contains(argTypes, arg) {
-		fmt.Println("arg matches type:", arg)
 		return arg, true
 	}
 

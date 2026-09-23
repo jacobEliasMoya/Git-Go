@@ -63,7 +63,7 @@ func commitType(arg string) (string, bool) {
 	return "", false
 }
 
-func stringSimilarityScore(arr []string, arg string) int {
+func stringSimilarityScore(arr []string, arg string) {
 
 	for _, arrayArgument := range arr {
 
@@ -77,15 +77,19 @@ func stringSimilarityScore(arr []string, arg string) int {
 			argChar = append(argChar, char)
 		}
 
+		for i, char := range arrChar {
+			fmt.Println(string(char))
+
+			if i >= len(argChar){
+				break	
+			}
+			// fmt.Println(string(argChar[i]))
+		}
+
 		if slices.Equal(arrChar, argChar) {
 			fmt.Printf("Matching: %s \n", string(argChar))
-		} 
-
-
-
+		}
 	}
-
-	return 0
 }
 
 func returnString(arg string) string {

@@ -10,6 +10,10 @@ func main() {
 	// slice expression to just graba the items after the executable path
 	args := os.Args[1:]
 
+	if len(args) < 3 {
+		fmt.Println("Error: Missing args <sc>")
+	}
+
 	var fullMessage, gitType, gitScope, gitMessage string
 
 	for i, item := range args {
@@ -49,12 +53,37 @@ func commitType(arg string) (string, bool) {
 
 	argTypes := []string{"fix", "feat", "refactor", "docs", "test"}
 
+	stringSimilarityScore(argTypes, arg)
+
 	if slices.Contains(argTypes, arg) {
 		return arg, true
 	}
 
 	fmt.Println("No arg match existing types")
 	return "", false
+}
+
+func stringSimilarityScore(arr []string, arg string) int {
+
+	fmt.Println(arr)
+
+	for _, arrayArgument := range arr {
+
+		var arrChar, argChar rune
+
+		fmt.Println("Array Args")
+		for arrIndex, arrayChar := range arrayArgument {
+			fmt.Printf("Index %d: letter %c\n", arrIndex, arrayChar)
+		}
+
+		fmt.Println("Individual Args")
+		for index, char := range arg {
+			fmt.Printf("Index %d: letter %c\n", index, char)
+		}
+
+	}
+
+	return 0
 }
 
 func returnString(arg string) string {

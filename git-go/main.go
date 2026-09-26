@@ -78,16 +78,18 @@ func stringSimilarityScore(arr []string, arg string) {
 		}
 
 		for i, char := range arrChar {
-			fmt.Println(string(char))
 
-			if i >= len(argChar){
-				break	
+			score := 0
+
+			if i >= len(argChar) {
+				break
 			}
-			// fmt.Println(string(argChar[i]))
-		}
 
-		if slices.Equal(arrChar, argChar) {
-			fmt.Printf("Matching: %s \n", string(argChar))
+			if char == argChar[i] {
+				score++
+			}
+
+			fmt.Println(score)
 		}
 	}
 }

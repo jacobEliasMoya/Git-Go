@@ -6,6 +6,11 @@ import (
 	"slices"
 )
 
+type CandidateScore struct {
+	Word  string
+	Score int
+}
+
 func main() {
 	// slice expression to just graba the items after the executable path
 	args := os.Args[1:]
@@ -65,6 +70,8 @@ func commitType(arg string) (string, bool) {
 
 func stringSimilarityScore(arr []string, arg string) {
 
+	var possibleMatches []CandidateScore
+
 	for _, arrayArgument := range arr {
 
 		var arrChar, argChar []rune
@@ -77,9 +84,9 @@ func stringSimilarityScore(arr []string, arg string) {
 			argChar = append(argChar, char)
 		}
 
-		for i, char := range arrChar {
+		score := 0
 
-			score := 0
+		for i, char := range arrChar {
 
 			if i >= len(argChar) {
 				break
@@ -89,9 +96,18 @@ func stringSimilarityScore(arr []string, arg string) {
 				score++
 			}
 
-			fmt.Println(score)
 		}
+
+		if score > 0 {
+			possibleMatches = append(possibleMatches, CandidateScore{
+				Word:  arrayArgument,
+				Score: score,
+			})
+		}
+
 	}
+
+	fmt.Println(possibleMatches)
 }
 
 func returnString(arg string) string {

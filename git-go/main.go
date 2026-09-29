@@ -1,6 +1,7 @@
 package main
 
 import (
+	"cmp"
 	"fmt"
 	"os"
 	"slices"
@@ -60,11 +61,13 @@ func commitType(arg string) (string, bool) {
 
 	matchingStrings := stringSimilarityScore(argTypes, arg)
 
+	filteredItem := bestPossibleMatch(matchingStrings)
+
 	if slices.Contains(argTypes, arg) {
 		return arg, true
 	}
 
-	fmt.Println("No arg match existing types")
+	fmt.Printf("No Matching commit types, did you mean `%s`", filteredItem.Word)
 	return "", false
 }
 
@@ -118,6 +121,11 @@ func returnString(arg string) string {
 	return ""
 }
 
-func bestPossibleMatch(matches []CandidateScore) string {
+func compareScores(a, b CandidateScore) int {
+	return cmp.Compare(b.Score, a.Score)
+}
 
+func bestPossibleMatch(matches []CandidateScore) CandidateScore {
+	slices.SortFunc(matches, compareScores)
+	return matches[0]
 }

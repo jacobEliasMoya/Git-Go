@@ -17,7 +17,8 @@ func main() {
 	args := os.Args[1:]
 
 	if len(args) < 3 {
-		fmt.Println("Error: Missing args <sc>")
+		fmt.Println("Error: Missing args")
+		os.Exit(1)
 	}
 
 	var fullMessage, gitType, gitScope, gitMessage string
@@ -30,7 +31,7 @@ func main() {
 			if isGitType {
 				gitType += hasGitType
 			} else {
-				return
+				os.Exit(0)
 			}
 
 		case 1:
@@ -58,16 +59,21 @@ func commitType(arg string) (string, bool) {
 	// "fix", "feat", "refactor", "docs", "test", for now
 
 	argTypes := []string{"fix", "feat", "refactor", "docs", "test"}
+	var filteredItem CandidateScore
 
 	matchingStrings := stringSimilarityScore(argTypes, arg)
-
-	filteredItem := bestPossibleMatch(matchingStrings)
 
 	if slices.Contains(argTypes, arg) {
 		return arg, true
 	}
 
-	fmt.Printf("No Matching commit types, did you mean `%s`", filteredItem.Word)
+	if len(matchingStrings) > 0 {
+		filteredItem = bestPossibleMatch(matchingStrings)
+		fmt.Printf("No Matching commit types, did you mean `%s`", filteredItem.Word)
+	} else {
+		fmt.Printf("No Matching commit types \nTry: fix, feat, refactor, docs, test")
+	}
+
 	return "", false
 }
 
@@ -126,6 +132,7 @@ func compareScores(a, b CandidateScore) int {
 }
 
 func bestPossibleMatch(matches []CandidateScore) CandidateScore {
+
 	slices.SortFunc(matches, compareScores)
 	return matches[0]
 }

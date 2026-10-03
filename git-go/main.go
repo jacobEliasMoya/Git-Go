@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"slices"
+	"strings"
 )
 
 type CandidateScore struct {
@@ -135,4 +136,17 @@ func bestPossibleMatch(matches []CandidateScore) CandidateScore {
 
 	slices.SortFunc(matches, compareScores)
 	return matches[0]
+}
+
+func compareTotalChars(possibleType string, commitType string) int {
+
+	score := 0
+
+	for _, types := range commitType {
+		if strings.ContainsRune(possibleType, types) {
+			score++
+		}
+	}
+
+	return score
 }

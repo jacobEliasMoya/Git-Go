@@ -56,9 +56,6 @@ func returnArgs(args []string) bool {
 
 func commitType(arg string) (string, bool) {
 
-	// list of items that should be available
-	// "fix", "feat", "refactor", "docs", "test", for now
-
 	argTypes := []string{"fix", "feat", "refactor", "docs", "test"}
 	var filteredItem CandidateScore
 
@@ -84,6 +81,10 @@ func stringSimilarityScore(arr []string, arg string) []CandidateScore {
 
 	for _, arrayArgument := range arr {
 
+		additionalScore := compareTotalChars(arrayArgument, arg)
+
+		// fmt.Println(additionalScore, " ", arrayArgument)
+
 		var arrChar, argChar []rune
 
 		for _, arrayChar := range arrayArgument {
@@ -108,10 +109,12 @@ func stringSimilarityScore(arr []string, arg string) []CandidateScore {
 
 		}
 
+		fmt.Println(additionalScore, " ", arrayArgument, " ", score)
+
 		if score > 0 {
 			possibleMatches = append(possibleMatches, CandidateScore{
 				Word:  arrayArgument,
-				Score: score,
+				Score: score + additionalScore,
 			})
 		}
 
@@ -133,7 +136,6 @@ func compareScores(a, b CandidateScore) int {
 }
 
 func bestPossibleMatch(matches []CandidateScore) CandidateScore {
-
 	slices.SortFunc(matches, compareScores)
 	return matches[0]
 }
@@ -141,6 +143,13 @@ func bestPossibleMatch(matches []CandidateScore) CandidateScore {
 func compareTotalChars(possibleType string, commitType string) int {
 
 	score := 0
+
+	// take one string, parse chars, make map of that arr / build back into word for checks.
+	possibleTypeMap := make(map[rune]struct{})
+
+	for _, chars := range possibleType {
+		possibleTypeMap[chars] = struct{}{}
+	}
 
 	for _, types := range commitType {
 		if strings.ContainsRune(possibleType, types) {

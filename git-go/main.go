@@ -151,6 +151,8 @@ func compareTotalChars(possibleType string, commitType string) int {
 		possibleTypeMap[chars] = struct{}{}
 	}
 
+	fmt.Printf("map %c", possibleTypeMap)
+
 	for _, types := range commitType {
 		if strings.ContainsRune(possibleType, types) {
 			score++

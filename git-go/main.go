@@ -81,11 +81,9 @@ func stringSimilarityScore(arr []string, arg string) []CandidateScore {
 
 	for _, arrayArgument := range arr {
 
-		additionalScore := compareTotalChars(arrayArgument, arg)
-
-		// fmt.Println(additionalScore, " ", arrayArgument)
-
 		var arrChar, argChar []rune
+
+		additionalScore := compareTotalChars(arrayArgument, arg)
 
 		for _, arrayChar := range arrayArgument {
 			arrChar = append(arrChar, arrayChar)
@@ -108,8 +106,6 @@ func stringSimilarityScore(arr []string, arg string) []CandidateScore {
 			}
 
 		}
-
-		fmt.Println(additionalScore, " ", arrayArgument, " ", score)
 
 		if score > 0 {
 			possibleMatches = append(possibleMatches, CandidateScore{
@@ -150,8 +146,6 @@ func compareTotalChars(possibleType string, commitType string) int {
 	for _, chars := range possibleType {
 		possibleTypeMap[chars] = struct{}{}
 	}
-
-	fmt.Printf("map %c", possibleTypeMap)
 
 	for _, types := range commitType {
 		if strings.ContainsRune(possibleType, types) {

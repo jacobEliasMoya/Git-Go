@@ -67,6 +67,7 @@ func commitType(arg string) (string, bool) {
 
 	if len(matchingStrings) > 0 {
 		filteredItem = bestPossibleMatch(matchingStrings)
+		fmt.Println(filteredItem)
 		fmt.Printf("No Matching commit types, did you mean `%s`", filteredItem.Word)
 	} else {
 		fmt.Printf("No Matching commit types \nTry: fix, feat, refactor, docs, test")
@@ -107,12 +108,14 @@ func stringSimilarityScore(arr []string, arg string) []CandidateScore {
 
 		}
 
-		if score > 0 {
-			possibleMatches = append(possibleMatches, CandidateScore{
-				Word:  arrayArgument,
-				Score: score + additionalScore,
-			})
-		}
+		finalScore := score + additionalScore
+
+		fmt.Println(finalScore)
+
+		possibleMatches = append(possibleMatches, CandidateScore{
+			Word:  arrayArgument,
+			Score: finalScore,
+		})
 
 	}
 

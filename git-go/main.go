@@ -132,10 +132,25 @@ func compareScores(a, b CandidateScore) int {
 }
 
 func bestPossibleMatch(matches []CandidateScore) CandidateScore {
-	for _, match := range matches {
-		fmt.Println(match)
+
+	errCount := 0
+	var noMatches bool
+
+	if errCount == len(matches) {
+		noMatches = true
+	} else {
+		noMatches = false
 	}
+
+	for _, match := range matches {
+		if match.Score == 0 {
+			errCount++
+		}
+	}
+
+	fmt.Println(noMatches)
 	slices.SortFunc(matches, compareScores)
+	
 	return matches[0]
 }
 

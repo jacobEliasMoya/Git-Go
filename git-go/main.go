@@ -56,17 +56,22 @@ func returnArgs(args []string) bool {
 
 func commitType(arg string) (string, bool) {
 
-	argTypes := []string{"fix", "feat", "refactor", "docs", "test"}
 	var filteredItem CandidateScore
+	var containsPotentialCandidate bool
+
+	argTypes := []string{"fix", "feat", "refactor", "docs", "test"}
 
 	matchingStrings := stringSimilarityScore(argTypes, arg)
+
+	fmt.Println(containsPotentialCandidate)
+	fmt.Println("matched: ", matchingStrings)
 
 	if slices.Contains(argTypes, arg) {
 		return arg, true
 	}
 
 	if len(matchingStrings) > 0 {
-		filteredItem = bestPossibleMatch(matchingStrings)
+		filteredItem, containsPotentialCandidate = bestPossibleMatch(matchingStrings)
 		fmt.Printf("No Matching commit types, did you mean `%s`", filteredItem.Word)
 	} else {
 		fmt.Printf("No Matching commit types \nTry: fix, feat, refactor, docs, test")
@@ -119,19 +124,7 @@ func stringSimilarityScore(arr []string, arg string) []CandidateScore {
 	return possibleMatches
 }
 
-func returnString(arg string) string {
-
-	if len(arg) > 0 {
-		return arg
-	}
-	return ""
-}
-
-func compareScores(a, b CandidateScore) int {
-	return cmp.Compare(b.Score, a.Score)
-}
-
-func bestPossibleMatch(matches []CandidateScore) CandidateScore {
+func bestPossibleMatch(matches []CandidateScore) (CandidateScore, bool) {
 
 	errCount := 0
 	var noMatches bool
@@ -148,10 +141,13 @@ func bestPossibleMatch(matches []CandidateScore) CandidateScore {
 		}
 	}
 
-	fmt.Println(noMatches)
+	if noMatches {
+		return CandidateScore{}, false
+	}
+
 	slices.SortFunc(matches, compareScores)
-	
-	return matches[0]
+	return matches[0], true
+
 }
 
 func compareTotalChars(possibleType string, commitType string) int {
@@ -173,6 +169,19 @@ func compareTotalChars(possibleType string, commitType string) int {
 
 	return score
 }
+
+func compareScores(a, b CandidateScore) int {
+	return cmp.Compare(b.Score, a.Score)
+}
+
+func returnString(arg string) string {
+
+	if len(arg) > 0 {
+		return arg
+	}
+	return ""
+}
+
 
 func displayHelpOptions() string {
 	return ""

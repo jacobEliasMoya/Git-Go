@@ -62,9 +62,12 @@ func commitType(arg string) (string, bool) {
 	argTypes := []string{"fix", "feat", "refactor", "docs", "test"}
 
 	matchingStrings := stringSimilarityScore(argTypes, arg)
+	potentialScoredMatches, hasMatches := bestPossibleMatch(matchingStrings)
+
+	fmt.Println("match info: ", potentialScoredMatches, hasMatches)
 
 	fmt.Println(containsPotentialCandidate)
-	fmt.Println("matched: ", matchingStrings)
+	// fmt.Println("matched: ", matchingStrings)
 
 	if slices.Contains(argTypes, arg) {
 		return arg, true
@@ -147,7 +150,6 @@ func bestPossibleMatch(matches []CandidateScore) (CandidateScore, bool) {
 
 	slices.SortFunc(matches, compareScores)
 	return matches[0], true
-
 }
 
 func compareTotalChars(possibleType string, commitType string) int {
@@ -181,7 +183,6 @@ func returnString(arg string) string {
 	}
 	return ""
 }
-
 
 func displayHelpOptions() string {
 	return ""

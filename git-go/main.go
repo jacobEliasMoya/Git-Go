@@ -65,9 +65,8 @@ func commitType(arg string) (string, bool) {
 	potentialScoredMatches, hasMatches := bestPossibleMatch(matchingStrings)
 
 	fmt.Println("match info: ", potentialScoredMatches, hasMatches)
-
 	fmt.Println(containsPotentialCandidate)
-	// fmt.Println("matched: ", matchingStrings)
+	fmt.Println("matched: ", matchingStrings)
 
 	if slices.Contains(argTypes, arg) {
 		return arg, true
@@ -149,6 +148,7 @@ func bestPossibleMatch(matches []CandidateScore) (CandidateScore, bool) {
 	}
 
 	slices.SortFunc(matches, compareScores)
+
 	return matches[0], true
 }
 
